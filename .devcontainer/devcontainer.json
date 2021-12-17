@@ -1,0 +1,8 @@
+{
+  "name": "homepage",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "node",
+  "workspaceFolder": "/workspace",
+  "extensions": [],
+  "settings": [],
+}

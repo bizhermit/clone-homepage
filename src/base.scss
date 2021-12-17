@@ -1,0 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
+p.info {
+  color: #aaa;
+
+  &:hover {
+    font-weight: bold;
+  }
+}

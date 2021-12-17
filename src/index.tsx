@@ -1,17 +1,23 @@
-import React, { VFC } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
-import MenuContainer from "./components/menu-container";
 import reportWebVitals from "./utils/reportWebVitals";
-import "./style/index.scss";
+import "./base.scss";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import MenuBar from "./components/menu-bar";
+import IndexPage from "./components/pages";
+import SummaryPage from "./components/pages/summary";
 
-const IndexPage: VFC = () => {
-    return (
-        <>
-        <h1>Homepage Starter</h1>
-        </>
-    );
-};
+const Pages = () => 
+<BrowserRouter basename="/">
+<MenuBar />
+<Routes>
+  {/* add page component */}
+  <Route path="/" element={<IndexPage />} />
+  <Route path="/summary" element={<SummaryPage />} />
+</Routes>
+</BrowserRouter>
+;
 
-ReactDOM.render(<React.StrictMode><MenuContainer Component={IndexPage} /></React.StrictMode>, document.getElementById("root"));
+ReactDOM.render(<React.StrictMode><Pages /></React.StrictMode>, document.getElementById("root"));
 
 reportWebVitals();

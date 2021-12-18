@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const MenuBarWrap = styled.div`
-position: relative;
+position: sticky;
+top: 0px;
 display: flex;
 flex-flow: row wrap;
 justify-content: flex-start;

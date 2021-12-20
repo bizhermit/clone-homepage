@@ -1,7 +1,7 @@
 {
   "name": "homepage",
-  "version": "0.0.1",
-  "description": "homepage clone base",
+  "version": "0.0.0",
+  "description": "clone base: homepage",
   "repository": {
     "type": "git",
     "url": "https://github.com/bizhermit/clone-homepage.git"
@@ -9,14 +9,11 @@
   "bugs": {
     "url": "https://github.com/bizhermit/clone-homepage/issues"
   },
-  "author": "bizhermit.com <support@bizhermit.com> (https://bizhermit.com)",
+  "author": "Ryoichi Senda (https://bizhermit.com)",
   "homepage": "https://bizhermit.com",
-  "contributors": [
-    "Ryoichi Senda <rsenda@bizhermit.com> (https://bizhermit.com)"
-  ],
   "scripts": {
     "start": "react-scripts start",
-    "build": "npx rimraf build && npx react-scripts build && npx license-checker --production > build/LICENSE",
+    "build": "npx rimraf build && npx react-scripts build && npx license-checker --production > build/AUTHORS && npx cpx LICENSE build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -36,6 +33,7 @@
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
     "@types/styled-components": "^5.1.18",
+    "cpx": "^1.5.0",
     "license-checker": "^25.0.1",
     "node-sass": "^7.0.0",
     "react-scripts": "^5.0.0",

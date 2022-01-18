@@ -1,52 +1,78 @@
-import { VFC } from "react";
-import { Link } from "react-router-dom";
+import MenuContainer from "@bizhermit/react-sdk/dist/containers/menu-container";
+import { MenuItemProps } from "@bizhermit/react-sdk/dist/controls/menu-list";
+import { StyleContext } from "@bizhermit/react-sdk/dist/styles/style";
+import { createContext, FC, useContext, useMemo, useState, VFC } from "react";
 import styled from "styled-components";
+import Anchor from "./basic/anchor";
 
-const MenuBarWrap = styled.div`
-position: sticky;
-top: 0px;
-display: flex;
-flex-flow: row wrap;
-justify-content: flex-start;
-align-items: flex-end;
-background: #345;
-color: #fff;
-`;
 const MenuBarTitle = styled.span`
 display: inline-block;
 font-size: 28px;
-padding: 0px 20px;
-`;
-const MenuBarItems = styled.div`
-display: flex;
-flex-flow: row nowrap;
-justify-content: flex-end;
-align-items: flex-start;
-flex: 1;
-`;
-const LinkLabel = styled.span`
-display: inline-block;
-min-width: 120px;
-padding: 0px 10px;
-text-align: center;
-text-decoration: underline;
-color: #fff;
-
-&:hover {
-  font-weight: bold;
+padding: 2px 20px 0px 20px;
+& * {
+  color: inherit !important;
+  text-decoration: none !important;
 }
 `;
+const MenuBarSubTitle = styled.span`
+display: inline-block;
+font-size: 20px;
+padding: 2px 10px 0px 10px;
+`;
 
-const MenuBar: VFC = () => {
+export const TitleContext = createContext<{ title: string; setTitle: (title?: string) => void }>({ title: "", setTitle: () => {} });
+
+const MenuBar: FC = ({ children }) => {
+  const styleCtx = useContext(StyleContext);
+  const [title, setTitle] = useState("");
+
+  const menuItems = useMemo<Array<MenuItemProps>>(() => [{
+    label: "style",
+    iconImage: "gear",
+    childItems: [{
+      label: "light color",
+      clicked: () => {
+        styleCtx.setColor("light");
+        return false;
+      },
+    }, {
+      label: "dark color",
+      clicked: () => {
+        styleCtx.setColor("dark");
+        return false;
+      },
+    }, {
+      label: "material design",
+      clicked: () => {
+        styleCtx.setDesign("material");
+        return false;
+      },
+    }, {
+      label: "neumorphism design",
+      clicked: () => {
+        styleCtx.setDesign("neumorphism");
+        return false;
+      }
+    }]
+  }], []);
+
   return (
-    <MenuBarWrap>
-      <MenuBarTitle>Biz Hermit</MenuBarTitle>
-      <MenuBarItems>
-        <Link to="/"><LinkLabel>INDEX</LinkLabel></Link>
-        <Link to="/summary"><LinkLabel>SUMMARY</LinkLabel></Link>
-      </MenuBarItems>
-    </MenuBarWrap>
+    <TitleContext.Provider value={{ title, setTitle }} >
+      <MenuContainer header={{ jsx: <HeaderComponent /> }} menu={{ items: menuItems, position: "right", mode: "closeToHeader", width: 240, resize: false }} style={{ height: "100%", width: "100%" }}>
+        {children}
+      </MenuContainer>
+    </TitleContext.Provider>
   );
 };
 
 export default MenuBar;
+
+const HeaderComponent: VFC = () => {
+  const titleCtx = useContext(TitleContext);
+  return (
+    <>
+    <MenuBarTitle><Anchor href="/">BizHermit</Anchor></MenuBarTitle>
+    <MenuBarSubTitle>{titleCtx.title}</MenuBarSubTitle>
+    </>
+  );
+}

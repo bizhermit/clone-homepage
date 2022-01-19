@@ -1,6 +1,6 @@
 import MenuContainer from "@bizhermit/react-sdk/dist/containers/menu-container";
 import { MenuItemProps } from "@bizhermit/react-sdk/dist/controls/menu-list";
-import { StyleContext } from "@bizhermit/react-sdk/dist/styles/style";
+import { useLayout } from "@bizhermit/react-sdk/dist/layouts/style";
 import { createContext, FC, useContext, useMemo, useState, VFC } from "react";
 import styled from "styled-components";
 import Anchor from "./basic/anchor";
@@ -23,7 +23,7 @@ padding: 2px 10px 0px 10px;
 export const TitleContext = createContext<{ title: string; setTitle: (title?: string) => void }>({ title: "", setTitle: () => {} });
 
 const MenuBar: FC = ({ children }) => {
-  const styleCtx = useContext(StyleContext);
+  const layout = useLayout();
   const [title, setTitle] = useState("");
 
   const menuItems = useMemo<Array<MenuItemProps>>(() => [{
@@ -32,25 +32,25 @@ const MenuBar: FC = ({ children }) => {
     childItems: [{
       label: "light color",
       clicked: () => {
-        styleCtx.setColor("light");
+        layout.setColor("light");
         return false;
       },
     }, {
       label: "dark color",
       clicked: () => {
-        styleCtx.setColor("dark");
+        layout.setColor("dark");
         return false;
       },
     }, {
       label: "material design",
       clicked: () => {
-        styleCtx.setDesign("material");
+        layout.setDesign("material");
         return false;
       },
     }, {
       label: "neumorphism design",
       clicked: () => {
-        styleCtx.setDesign("neumorphism");
+        layout.setDesign("neumorphism");
         return false;
       }
     }]

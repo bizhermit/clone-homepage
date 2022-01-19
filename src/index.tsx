@@ -6,12 +6,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MenuBar from "./components/menu-bar";
 import IndexPage from "./components/pages";
 import SummaryPage from "./components/pages/summary";
-import { AppStyle } from "@bizhermit/react-sdk/dist/styles/style";
-import { scrollbarClassName } from "@bizhermit/react-sdk/dist/styles/scrollbar";
 import FlexBox from "@bizhermit/react-sdk/dist/containers/flexbox";
+import { LayoutProvider, scrollbarClassName } from "@bizhermit/react-sdk/dist/layouts/style";
 
 const Pages = () => 
-<AppStyle design="neumorphism">
+<LayoutProvider design="neumorphism">
 <BrowserRouter basename="/">
 <MenuBar>
 <FlexBox fitToOuter="fill" style={{ padding: 5 }} className={scrollbarClassName}>
@@ -23,7 +22,7 @@ const Pages = () =>
 </FlexBox>
 </MenuBar>
 </BrowserRouter>
-</AppStyle>
+</LayoutProvider>
 ;
 
 ReactDOM.render(<React.StrictMode><Pages /></React.StrictMode>, document.getElementById("root"));
